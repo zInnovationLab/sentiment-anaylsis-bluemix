@@ -1,0 +1,19 @@
+{
+  "name": "public",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "~0.7.19",
+    "polymer": "Polymer/polymer#^1.2.0"
+  }
+}

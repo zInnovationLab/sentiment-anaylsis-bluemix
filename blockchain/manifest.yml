@@ -1,0 +1,48 @@
+---
+declared-services:
+  linuxcon-mongo:
+    label: mongodb
+    plan: 100
+  linuxcon-blockchain:
+    label: blockchain
+    plan: ibm-blockchain-plan-4-prod
+applications:
+- name: linuxcon-news
+  memory: 128M
+  services:
+  - linuxcon-mongo
+  instances: 1
+  host: linuxconnews
+  domain: mybluemix.net
+  path: news/news_frontend
+  command: node app
+- name: linuxcon-tweets
+  memory: 128M
+  services:
+  - linuxcon-mongo
+  - linuxcon-blockchain
+  instances: 1
+  host: linuxcontweets
+  domain: mybluemix.net
+  path: tweets/tweets_frontend
+  command: node app
+  env:
+    USE_ALCHEMY: "yes"
+    ALCHEMY_URL: "http://linuxconalchemy.mybluemix.net"
+- name: linuxcon-tweets-updater
+  memory: 128MB
+  services:
+  - linuxcon-mongo
+  instances: 1
+  env:
+    TWITTER_APIKEY: '{"consumer_key": "", "consumer_secret": "", "access_token": "", "access_token_secret": ""}' 
+  host: linuxcontweetsupdater
+  path: tweet_updater
+- name: linuxcon-alchemy-sentiment
+  memory: 128MB
+  instances: 1
+  env:
+    ALCHEMY_APIKEY: ""
+  host: linuxconalchemy
+  command: node app  
+  path: sentiment_alchemy

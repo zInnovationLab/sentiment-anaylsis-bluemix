@@ -1,0 +1,113 @@
+<!--
+Licensed Materials - Property of IBM
+"Restricted Materials of IBM"
+
+(c) Copyright IBM Corp. 2000, 2016 All Rights Reserved
+
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!--jquery.js and bootstrap.js are required by the bootstrap drop down plugin-->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<dom-module id="basic-table-block">
+    <template>
+        <div class="tile">
+            <h2 class="tile-title" id="title">[[title]]</h2>
+
+            <div class="tile-config dropdown">
+                <a class="tile-menu" data-toggle="dropdown"></a>
+                <ul class="dropdown-menu pull-right text-right">
+                    <li><a href="">Refresh</a></li>
+                    <li><a href="">Settings</a></li>
+                </ul>
+            </div>
+            <div class="listview narrow">
+                <div class="media p-l-5" style='font-size: 1em'>
+                    <content></content>
+                    <template is="dom-repeat" items="{{model}}">
+                        <div class='media p-l-5'>
+                            <div class='media-body'><a href$="{{computeLink(item)}}" target="_blank">
+                                <text style$='color: {{computeColor(item)}}'>
+                                    <!--NEWS-->
+                                    <template is="dom-if" if="{{item.title}}">
+                                        {{item.description}}
+                                    </template>
+
+                                    <!--TWEETS-->
+                                    <template is="dom-if" if="{{item.text.text}}">
+                                        {{item.text.text}}
+                                    </template>
+
+                                    <!--TRADES-->
+                                    <template is="dom-if" if="{{item.stock}}">
+                                        {{item.stock}}
+                                    </template>
+                                </text>
+                            </a></div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'basic-table-block',
+
+            properties: {
+                title: {
+                    type: String,
+                    value: 'TITLE'
+                },
+                titleFontSize: {
+                    type: String,
+                    value: '1.1em'
+                },
+                model: {
+                    type: Array,
+                    value: []
+                }
+            },
+            ready: function () {
+                this.$.title.style.fontSize = this.titleFontSize;
+            },
+
+            computeColor: function (item) {
+                if (!item) {
+                    return;
+                }
+                var color = '#FFA500'; // orange
+                if (item.sentiment && item.sentiment.toString() == "negative")
+                    color = '#FF2C2B'; // red
+                else if (item.sentiment && item.sentiment.toString() == "positive")
+                    color = '#16A900'; // green
+                else if (item.action && item.action.toString().toLowerCase() == "sell")
+                    color = '#FF2C2B';
+                else if (item.action && item.action.toString().toLowerCase() == "buy")
+                    color = '#16A900';
+                return color;
+            },
+
+            computeLink: function (item) {
+                if (!item) {
+                    return;
+                }
+                var link;
+                if (item.text && item.text.url)
+                    link = item.text.url.toString();
+                else if (item.url)
+                    link = item.url.toString();
+                if (link === undefined || link === null)
+                    link = 'javascript:return(false)';
+                return link;
+
+            }
+        });
+    </script>
+</dom-module>

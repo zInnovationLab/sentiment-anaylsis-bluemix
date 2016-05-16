@@ -1,0 +1,83 @@
+<!--
+Licensed Materials - Property of IBM
+"Restricted Materials of IBM"
+
+(c) Copyright IBM Corp. 2000, 2016 All Rights Reserved
+
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="basic-clock">
+    <style>
+        #clock {
+            font-size: 20px;
+            padding-top: 10px;
+            margin-right: 4px;
+        }
+    </style>
+
+    <template>
+        <div id="clock">
+            <span hidden$="[[hideDate]]">
+                <span id="date">[[date]]</span>
+            </span>
+            <span hidden$="[[hideTime]]">
+                <span>[[hour]]</span> : <span>[[minute]]</span> : <span>[[second]]</span>
+            </span>
+        </div>
+    </template>
+
+    <script>
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        Polymer({
+            is: 'basic-clock',
+
+            hour: '00',
+            minute: '00',
+            second: '00',
+            date: '',
+            hideDate: true,
+            hideTime: false,
+            properties: {
+                displayMode: {
+                    type: String,
+                    value: 'time'
+                }
+            },
+
+            createClock: function () {
+                var newDate = new Date();
+                this.date = dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear();
+                this.hour = newDate.getHours() < 10 ? '0' + newDate.getHours() : newDate.getHours();
+                this.minute = newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes();
+                this.second = newDate.getSeconds() < 10 ? '0' + newDate.getSeconds() : newDate.getSeconds();
+                switch (this.displayMode) {
+                    case 'date':
+                    {
+                        this.hideTime = true;
+                        this.hideDate = false;
+                        break;
+                    }
+                    case 'dateTime' :
+                    {
+                        this.hideTime = false;
+                        this.hideDate = false;
+                        break;
+                    }
+                    default:
+                    {
+                        this.hideTime = false;
+                        this.hideDate = true;
+                    }
+                }
+                this.async(this.createClock, 1000);
+            },
+
+            ready: function () {
+                this.createClock();
+            }
+        });
+    </script>
+</dom-module>

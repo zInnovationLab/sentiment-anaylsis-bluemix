@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9"><![endif]-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment</title>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="/elements/basic-clock/basic-clock.html">
+    <link rel="import" href="/elements/basic-input-box/basic-input-box.html">
+    <link rel="import" href="/elements/news-sentiment/news-sentiment.html">
+</head>
+<body style='background-color: #151515'>
+<div>
+    <header class="media" id="header">
+        <div class="media-body">
+            <div class="media" id="top-menu">
+                <div class="pull-right">
+                    <basic-clock></basic-clock>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="clearfix"></div>
+
+    <section class="p-relative" id="main">
+        <!-- Content -->
+        <section class="container" id="content" style="margin-left: 0px !important;">
+            <div class="block-area" id="text-input1">
+                <a class="shortcut tile" href=""><img src="img/shortcuts/twitter.png" alt=""></a>
+                <a class="shortcut tile" href="#" id="stop"><img
+                            src="img/shortcuts/pause.png" alt=""></a>
+                <basic-input-box id="search"></basic-input-box>
+            </div>
+
+            <hr class="whiter">
+
+            <div class="col-md-12 col-lg-12">
+                <news-sentiment id="newsTableBlock" hidden="true"></news-sentiment>
+            </div>
+        </section>
+    </section>
+
+    <script src="/js/news-sentiment.js"></script>
+
+</div>
+</body>
+</html>

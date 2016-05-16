@@ -1,0 +1,17 @@
+{
+  "name": "news_feed_updater",
+  "version": "1.0.0",
+  "description": "## Overview The News Feed Updater (NFU) is written in Node.js, a Javascript server side runtime. The NFU listens to a news channel (can be configured to other feed), then to insert the news feed into a MongoDB server, for sentiment analysis use later. . Node.js runtime Installation instructions can be found at https://developer.ibm.com/node/sdk/.",
+  "main": "app.js",
+  "dependencies": {
+    "feedparser": "^1.1.4",
+    "mongodb": "^2.1.4",
+    "request": "^2.67.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

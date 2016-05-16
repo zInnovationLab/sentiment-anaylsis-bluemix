@@ -1,0 +1,17 @@
+{
+  "name": "linuxcondash",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cors": "latest",
+    "ejs": "*",
+    "express": "3.2.6",
+    "merge": "latest",
+    "mongodb": "^2.1.14",
+    "request": "latest",
+    "socket.io": "latest"
+  }
+}

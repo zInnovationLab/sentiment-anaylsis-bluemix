@@ -1,0 +1,79 @@
+<!--
+Licensed Materials - Property of IBM
+"Restricted Materials of IBM"
+
+(c) Copyright IBM Corp. 2000, 2016 All Rights Reserved
+
+-->
+
+<!--<link rel="import" href="/bower_components/polymer/polymer.html">-->
+<link rel="import" href="/elements/basic-table-block/basic-table-block.html">
+
+<!--Javascript-->
+<script type="text/javascript" src="js/socket.io.min.js"></script>
+
+<dom-module id="tweets-sentiment">
+
+    <template>
+
+        <div style='font-size: 1.5em; background-color: #151515'>
+            <basic-table-block title="TWEETS" model="{{tweetsItems}}">
+            </basic-table-block>
+        </div>
+    </template>
+
+    <script>
+
+        Polymer({
+            is: 'tweets-sentiment',
+            properties: {
+                protocol: {
+                    type: String
+                },
+                host: {
+                    type: String
+                },
+                port: {
+                    type: String
+                },
+                socket: {
+                    type: Object
+                },
+                tweetsItems: {
+                    type: Array,
+                    value: []
+                },
+                searchInit: {
+                    type: String,
+                    value: 'disabled'
+                }
+            },
+
+            ready: function () {
+                var self = this;
+                var socketIoConnection = ( self.protocol || window.location.protocol) + '//' + (self.host || window.location.hostname) + ':' + ( self.port || window.location.port);
+                console.log('tweets-sentiment socketIoConnection:' + socketIoConnection);
+                self.socket = io.connect(socketIoConnection);
+                var TWEETS_ITEM_NUM_LIMIT = 15;
+
+                self.socket.on('tweets', function (data) {
+                    self.unshift('tweetsItems', data);
+                    while (self.tweetsItems.length > TWEETS_ITEM_NUM_LIMIT) {
+                        self.pop('tweetsItems');
+                    }
+                });
+
+                //For testing...
+                if (self.searchInit === 'enabled') {
+                    self.socket.emit('search', 'china');
+                }
+            },
+            stop: function () {
+                this.socket.emit('stopSearch');
+            },
+            search: function (searchTerm) {
+                this.socket.emit('search', searchTerm)
+            }
+        });
+    </script>
+</dom-module>
