@@ -35,3 +35,4 @@ Install Jenkins in any cloud offering, for our purposes, we are running Jenkins 
 
 1. Install the [Github Jenkins plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin)
   - From the Jenkins homepage, select Manage Jenkins -> Manage Plugins -> Available Tab -> Search for "Github Plugin"
+  - Select Install Without Restart, the page will refresh and show if a restart is required for any other internal plugin updates
