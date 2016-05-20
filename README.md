@@ -16,7 +16,7 @@ Note: Before building, the jenkins slave node needs to be created as a node by j
 
 
 
-#Jenkins / Github Build Process Setup
+#Jenkins / Github / Docker - Continuous Integration Setup
 ---
 The sections below will go through the end to end setup process for configuring Jenkins for Continuous Integration on LinuxONE and Linux on z Systems.
 
@@ -25,14 +25,34 @@ On z platforms, Jenkins is used for the application deployment. Assuming a user 
 CI is provided by jenkins. So any source code changes on the repository will trigger a rebuild, so the application is always up-to-date.
 
 
-##Running Jenkins in Bluemix
+## Running Jenkins in Bluemix
 
 Install Jenkins in any cloud offering, for our purposes, we are running Jenkins inside an IBM Container (built on top of Docker containers) in Bluemix. Just download the Jenkins .war file and create an IBM Container for Websphere Liberty. 
 
 - Additional documentation here for IBM Container setup and Jenkins WAR file dropin goes here if necessary
 
-## Configuring Jenkins Master
+## Jenkins Slave Environment Setup
+Jenkins Slaves are necessary to retrieve the Docker images built on the Jenkins Master and delivered to Docker Hub (or any private registry). The eventual goal is to show this CI process being able to work in a Hybrid environment, where builds can be triggered on slaves that are internet accessible as well as behind a firewall. 
 
+### Publicly accessible LinuxONE or Linux on z System
+If you do not currently have access to an internet accessible LinuxONE or Linux on z system, you can request and self provision a server on the [IBM LinuxONE Community Cloud for Developers](https://developer.ibm.com/linuxone/?source=web&ca=linuxone&ovcode=ov44223&tactic=C47300NW). Just select the Register Now link and proceed to create your own LinuxONE server. I recommend using the RHEL v7.2 image.
+
+1. SSH into your server and verify Java is installed
+  - `sudo yum install java`
+2. Create a data directory for Jenkins
+  - `sudo mkdir -p /data/jenkins`
+
+## Configuring Jenkins Master
 1. Install the [Github Jenkins plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin)
   - From the Jenkins homepage, select Manage Jenkins -> Manage Plugins -> Available Tab -> Search for "Github Plugin"
   - Select Install Without Restart, the page will refresh and show if a restart is required for any other internal plugin updates
+2. Add a Slave Node to Jenkins Master
+  - From the Jenkins homepage, select Manage Jenkins -> Manage Nodes -> New Node
+  - Give it a name such as "Community Cloud Slave" or anything descriptive and select "Dumb Slave", Press OK
+  - Provide the data directory you created earlier `/data/jenkins`
+  - Under Launch method select "Launch slave agents on UNIX machines via SSH"
+    - Specify the IP of your LinuxONE server
+    - Add the credentials to your LinuxONE server using any authentication mechanism desired
+  - Save the changes
+  - At this point, the Slave agent should attempt to install itself on your LinuxONE server, with details about progress displayed in the Web UI
+3. 
