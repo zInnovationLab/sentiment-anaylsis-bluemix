@@ -29,7 +29,15 @@ CI is provided by jenkins. So any source code changes on the repository will tri
 
 Install Jenkins in any cloud offering, for our purposes, we are running Jenkins inside an IBM Container (built on top of Docker containers) in Bluemix. Just download the Jenkins .war file and create an IBM Container for Websphere Liberty. 
 
-- Additional documentation here for IBM Container setup and Jenkins WAR file dropin goes here if necessary
+If using the IBM Container for Websphere Liberty, some minor customization of the container is required. In order to execute Docker commands directly to the container, the installation of the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) is required as well as the [IBM Containers CF plugin](https://console.ng.bluemix.net/docs/containers/container_cli_cfic.html). 
+
+Once the above pre-reqs are met, follow the steps below to configure the container to function as a Jenkins Master
+- Install ssh `sudo apt-get install ssh`
+- Install git `sudo apt-get install git`
+- Download the Jenkins WAR and place it into the Websphere Liberty dropins folder
+  - `cd /config/dropins`
+  - `wget http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war`
+- Navigate your browser to Jenkins `https://<server>:8080/jenkins`
 
 ## Jenkins Slave Environment Setup
 Jenkins Slaves are necessary to retrieve the Docker images built on the Jenkins Master and delivered to Docker Hub (or any private registry). The eventual goal is to show this CI process being able to work in a Hybrid environment, where builds can be triggered on slaves that are internet accessible as well as behind a firewall. 
@@ -55,4 +63,8 @@ If you do not currently have access to an internet accessible LinuxONE or Linux 
     - Add the credentials to your LinuxONE server using any authentication mechanism desired
   - Save the changes
   - At this point, the Slave agent should attempt to install itself on your LinuxONE server, with details about progress displayed in the Web UI
-3. 
+3. Create a Job to watch a Github repo for changes and Build Docker images when any updates occur
+  - Navigate to your Jenkins Homepage, click the "create new jobs" link to get started
+  - Name your project something meaningful like "Github Docker Build" and select "Freestyle project"
+  - Select the "GitHub Project" checkbox and enter the project you'll be watching, make sure to enter the cloning address, such as https://github.com/zInnovationLab/sentiment-anaylsis-bluemix.git
+  - Under Source Code Management, select Git and paste the same URL you used above
