@@ -68,7 +68,21 @@ If you do not currently have access to an internet accessible LinuxONE or Linux 
   - Name your project something meaningful like "Github Docker Build" and select "Freestyle project"
   - Select the "GitHub Project" checkbox and enter the project you'll be watching, make sure to enter the cloning address, such as https://github.com/zInnovationLab/sentiment-anaylsis-bluemix.git
   - Under Source Code Management, select Git and paste the same URL you used above
-  - 
+  - Under Build Triggers, select "Build when a change is pushed to Github"
+  - Under Build, add an "Execute Shell" build step and paste the following code:
+    ```
+export REGISTRY=
+export REGISTRY_PORT=5000
+export USR_NAME=ivandov
+export DOCKER_DAEMON_DIRECTORY=/docker
+
+./scripts/share/setup_docker.sh
+cd scripts/jenkins_server
+./setup_base_images.sh
+docker-compose build
+./push_images.sh
+```
+  - Select save to apply changes!
   
 
 TESTING WEBHOOK!
