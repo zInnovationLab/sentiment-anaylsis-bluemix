@@ -1,5 +1,7 @@
 #! /bin/bash
 
+echo "Running setup_docker script as $(whoami)"
+
 install_docker_compose ()
 {
 zypper install -y git libxslt-devel libxml2-devel python-setuptools libpipeline-devel python-lxml python-xml
