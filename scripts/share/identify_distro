@@ -1,0 +1,7 @@
+#! /bin/bash
+
+if [[$(uname -a) =~ .*Ubuntu.* ]] ; then
+  echo "Detected Ubuntu Operating System"
+elif [ ! -x /usr/bin/docker  ] ; then
+  echo "Performing manual install"
+fi
