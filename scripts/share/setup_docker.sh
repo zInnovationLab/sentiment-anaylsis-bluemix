@@ -43,7 +43,7 @@ install_docker_ubuntu ()
 DOCKER_RUNNING=`ps aux | grep -v grep | grep 'docker daemon'`
 if [ "${DOCKER_RUNNING:-null}" = null ] ; then
 	echo "Docker is not running..."
-	if [[$(uname -a) == *"Ubuntu"*]] ; then
+	if [[ $(uname -a) =~ .*Ubuntu.* ]] ; then
 		echo "Detected Ubuntu Operating System"
 		install_docker_ubuntu
 	elif [ ! -x /usr/bin/docker  ] ; then
