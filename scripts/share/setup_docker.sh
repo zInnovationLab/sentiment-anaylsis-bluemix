@@ -21,7 +21,7 @@ install_docker_ubuntu ()
 {
 	#start docker-compose install procedure as documented on https://docs.docker.com/engine/installation/linux/ubuntulinux/
 	apt-get update
-	apt-get --assume-yes install apt-transport-https ca-certificates
+	apt-get --assume-yes --force-yes install apt-transport-https ca-certificates
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 	rm -f /etc/apt/sources.list.d/docker.list
 	touch /etc/apt/sources.list.d/docker.list
@@ -31,12 +31,12 @@ install_docker_ubuntu ()
 	apt-cache policy docker-engine
 
 	#pre-requisites for Ubuntu 14.04 (IBM containers are built on this)
-	apt-get --assume-yes install linux-image-extra-$(uname -r)
-	apt-get --assume-yes install apparmor
+	apt-get --assume-yes --force-yes install linux-image-extra-$(uname -r)
+	apt-get --assume-yes --force-yes install apparmor
 
 	#install
 	apt-get update
-	apt-get --assume-yes install docker-engine
+	apt-get --assume-yes --force-yes install docker-engine
 	service docker start
 	docker run hello-world
 }
