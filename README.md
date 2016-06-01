@@ -1,4 +1,4 @@
-Sentiment-analysis-blumix-zSupport is a demo project to show how to enable bluemix application on z systems. Sentiment-analysis is a demo application with nodejs as front end, mongodb as data storage and alchyme as data processing engine. 
+Sentiment-analysis-blumix-zSupport is a demo project to show how to enable bluemix application on z systems. Sentiment-analysis is a demo application with nodejs as front end, mongodb as data storage and alchyme as data processing engine.
 
 Apart from the application, there are two script sets:
 
@@ -7,7 +7,7 @@ Apart from the application, there are two script sets:
 2. `scripts`: including the following scripts:
 
   `share/setup_docker.sh`: For both jenkins server and slaves, install and run docker, also install docker-compose.
-  
+
   `jenkins_server`: The jenkins server will build a base OS image, which is a sles12 image, use docker-compose to build all images and push the images to the registry.
 
   `jenkins_slave`: The jenkins slave will pull the images and start the containers from the images.
@@ -27,9 +27,9 @@ CI is provided by jenkins. So any source code changes on the repository will tri
 
 ## Running Jenkins in Bluemix
 
-Install Jenkins in any cloud offering, for our purposes, we are running Jenkins inside an IBM Container (built on top of Docker containers) in Bluemix. Just download the Jenkins .war file and create an IBM Container for Websphere Liberty. 
+Install Jenkins in any cloud offering, for our purposes, we are running Jenkins inside an IBM Container (built on top of Docker containers) in Bluemix. Just download the Jenkins .war file and create an IBM Container for Websphere Liberty.
 
-If using the IBM Container for Websphere Liberty, some minor customization of the container is required. In order to execute Docker commands directly to the container, the installation of the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) is required as well as the [IBM Containers CF plugin](https://console.ng.bluemix.net/docs/containers/container_cli_cfic.html). 
+If using the IBM Container for Websphere Liberty, some minor customization of the container is required. In order to execute Docker commands directly to the container, the installation of the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) is required as well as the [IBM Containers CF plugin](https://console.ng.bluemix.net/docs/containers/container_cli_cfic.html).
 
 Once the above pre-reqs are met, follow the steps below to configure the container to function as a Jenkins Master
 - Install ssh `sudo apt-get install ssh`
@@ -40,7 +40,7 @@ Once the above pre-reqs are met, follow the steps below to configure the contain
 - Navigate your browser to Jenkins `https://<server>:8080/jenkins`
 
 ## Jenkins Slave Environment Setup
-Jenkins Slaves are necessary to retrieve the Docker images built on the Jenkins Master and delivered to Docker Hub (or any private registry). The eventual goal is to show this CI process being able to work in a Hybrid environment, where builds can be triggered on slaves that are internet accessible as well as behind a firewall. 
+Jenkins Slaves are necessary to retrieve the Docker images built on the Jenkins Master and delivered to Docker Hub (or any private registry). The eventual goal is to show this CI process being able to work in a Hybrid environment, where builds can be triggered on slaves that are internet accessible as well as behind a firewall.
 
 ### Publicly accessible LinuxONE or Linux on z System
 If you do not currently have access to an internet accessible LinuxONE or Linux on z system, you can request and self provision a server on the [IBM LinuxONE Community Cloud for Developers](https://developer.ibm.com/linuxone/?source=web&ca=linuxone&ovcode=ov44223&tactic=C47300NW). Just select the Register Now link and proceed to create your own LinuxONE server. I recommend using the RHEL v7.2 image.
@@ -83,6 +83,6 @@ docker-compose build
 ./push_images.sh
 ```
   - Select save to apply changes!
-  
 
-TESTING WEBHOOK!
+
+Webhook works!
