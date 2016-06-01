@@ -66,7 +66,7 @@ fi
 # Checking if docker-compose is installed
 if [ ! -x /usr/bin/docker-compose ] ; then
 	echo "Docker-compose is not installed, install now..."
-	#install_docker_compose
+	install_docker_compose
 else
 	echo "Good! Docker-compose is installed."
 fi
