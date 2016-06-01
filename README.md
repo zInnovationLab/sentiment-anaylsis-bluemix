@@ -87,3 +87,4 @@ docker-compose build
 
 Webhook works!
 Build!
+testing build on community cloud!
