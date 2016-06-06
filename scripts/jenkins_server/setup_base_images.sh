@@ -94,7 +94,7 @@ RUN zypper install -y \
 # Build and install Node.js
 RUN git clone https://github.com/andrewlow/node.git && \
     cd node/ && \
-    ./configure && \ 
+    ./configure && \
     make && \
     make install
 
@@ -106,25 +106,43 @@ cd ..
 rm -r Node.js
 }
 
+pull_sles12_nodejs_image (){
+mkdir Node.js
+cd Node.js
+/bin/cat > Dockerfile <<EOF
+# Base image
+FROM brunswickheads/clefos71-nodejs-s390x:latest
+
+# The author
+MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)
+
+# Install grunt-cli
+CMD ["npm", "install", "-g", "grunt-cli"]
+EOF
+docker build -t sles12node .
+cd ..
+rm -r Node.js
+}
+
 # Checking if sles12 base image exsits
-SLES12_BASE_UP=`docker images | grep '^sles12 '`
-if [ "${SLES12_BASE_UP:-null}" = null ] ; then
-        echo "Sles12 base images is not built..."
-	SLES12_RAW_UP=`docker images | grep '^sles12_raw '`
-	if [ "${SLES12_RAW_UP:-null}" = null ] ; then
-		echo "Sles12 raw images is not built..."
-		make_sles12_raw_image
-	fi
-	make_sles12_base_image
-else
-	echo "Good! Sles12 base images is built."
-fi
+# SLES12_BASE_UP=`docker images | grep '^sles12 '`
+# if [ "${SLES12_BASE_UP:-null}" = null ] ; then
+#         echo "Sles12 base images is not built..."
+# 	SLES12_RAW_UP=`docker images | grep '^sles12_raw '`
+# 	if [ "${SLES12_RAW_UP:-null}" = null ] ; then
+# 		echo "Sles12 raw images is not built..."
+# 		make_sles12_raw_image
+# 	fi
+# 	make_sles12_base_image
+# else
+# 	echo "Good! Sles12 base images is built."
+# fi
 
 # Checking if sles12 nodejs image exsits
 SLES12_NODEJS_UP=`docker images | grep '^sles12node '`
 if [ "${SLES12_NODEJS_UP:-null}" = null ] ; then
         echo "Sles12 node.js images is not built..."
-        make_sles12_nodejs_image
+        pull_sles12_nodejs_image
 else
         echo "Good! Sles12 node.js images is built."
 fi
