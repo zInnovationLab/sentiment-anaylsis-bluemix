@@ -3,13 +3,15 @@ mongo_server:
     container_name: mongo_server
 
 news_up:
-    build: ../../../news_feed_updater/ubuntu/
+    build: ../../../news_feed_updater
+      dockerfile: Dockerfile-ubuntu
     container_name: news_up
     links:
         - mongo_server
 
 tweety_up:
-    build: ../../../tweet_updater/ubuntu/
+    build: ../../../tweet_updater
+      dockerfile: Dockerfile-ubuntu
     container_name: tweety_up
     links:
         - mongo_server
@@ -17,7 +19,8 @@ tweety_up:
     tty: true
 
 alchemy_api:
-    build: ../../../sentiment_alchemy/ubuntu/
+    build: ../../../sentiment_alchemy
+      dockerfile: Dockerfile-ubuntu
     container_name: alchemy_api
     ports:
     - "8081:8080"
@@ -25,7 +28,8 @@ alchemy_api:
     tty: true
 
 news_front:
-    build: ../../../news/ubuntu/
+    build: ../../../news
+      dockerfile: Dockerfile-ubuntu
     container_name: news_front
     ports:
     - "8083:8080"
@@ -37,7 +41,8 @@ news_front:
         - USE_ALCHEMY=yes
 
 tweety_front:
-    build: ../../../tweets/ubuntu/
+    build: ../../../tweets
+      dockerfile: Dockerfile-ubuntu
     container_name: tweety_front
     ports:
     - "8082:8080"

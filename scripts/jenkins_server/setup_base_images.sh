@@ -96,7 +96,7 @@ if [ $DISTRO = "ubuntu" ] ; then
 	UBUNTU_NODEJS_UP=`docker images | grep '^ubuntu-node '`
 	if [ "${UBUNTU_NODEJS_UP:-null}" = null ] ; then
 			echo "Ubuntu node.js images is not built..."
-			pull_nodejs_image
+			make_ubuntu_nodejs_image
 	else
 			echo "Good! Ubuntu node.js images is built."
 	fi
@@ -130,8 +130,6 @@ elif [ $DISTRO = "sles12" ] ; then
 
 #Building this on a publically available CentOS NodeJS image
 else
-	echo "Checking for Ubuntu based images!"
-	
 	# Checking if CentOS nodejs image exsits
 	CENTOS_NODEJS_UP=`docker images | grep '^centos-node '`
 	if [ "${CENTOS_NODEJS_UP:-null}" = null ] ; then
