@@ -74,75 +74,64 @@ rm -r sles12_base
 
 make_sles12_nodejs_image ()
 {
-mkdir Node.js
-cd Node.js
-/bin/cat > Dockerfile <<EOF
-# Base image
-FROM sles12:latest
-
-# The author
-MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)
-
-# Install the build dependencies
-RUN zypper install -y \
-        gcc-c++ \
-        git \
-        java-1_7_0-openjdk \
-        make
-
-# Clone the source code of Node.js from github
-# Build and install Node.js
-RUN git clone https://github.com/andrewlow/node.git && \
-    cd node/ && \
-    ./configure && \
-    make && \
-    make install
-
-# Install grunt-cli
-CMD ["npm", "install", "-g", "grunt-cli"]
-EOF
+cd ../../nodejs/sles12
 docker build -t sles12node .
-cd ..
-rm -r Node.js
 }
 
-pull_sles12_nodejs_image (){
-mkdir Node.js
-cd Node.js
-/bin/cat > Dockerfile <<EOF
-# Base image
-FROM brunswickheads/clefos71-nodejs-s390x:latest
-
-# The author
-MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)
-
-# Install grunt-cli
-CMD ["npm", "install", "-g", "grunt-cli"]
-EOF
-docker build -t sles12node .
-cd ..
-rm -r Node.js
+make_centos_nodejs_image (){
+cd ../../nodejs/centos
+docker build -t centos-node .
 }
 
-# Checking if sles12 base image exsits
-# SLES12_BASE_UP=`docker images | grep '^sles12 '`
-# if [ "${SLES12_BASE_UP:-null}" = null ] ; then
-#         echo "Sles12 base images is not built..."
-# 	SLES12_RAW_UP=`docker images | grep '^sles12_raw '`
-# 	if [ "${SLES12_RAW_UP:-null}" = null ] ; then
-# 		echo "Sles12 raw images is not built..."
-# 		make_sles12_raw_image
-# 	fi
-# 	make_sles12_base_image
-# else
-# 	echo "Good! Sles12 base images is built."
-# fi
+make_ubuntu_nodejs_image (){
+cd ../../nodejs/ubuntu
+docker build -t ubuntu-node .
+}
 
-# Checking if sles12 nodejs image exsits
-SLES12_NODEJS_UP=`docker images | grep '^sles12node '`
-if [ "${SLES12_NODEJS_UP:-null}" = null ] ; then
-        echo "Sles12 node.js images is not built..."
-        pull_sles12_nodejs_image
+#Building this on an Ubuntu base image
+if[ $DISTRO = "ubuntu" ] ; then
+	# Checking if ubuntu nodejs image exsits
+	UBUNTU_NODEJS_UP=`docker images | grep '^ubuntu-node '`
+	if [ "${UBUNTU_NODEJS_UP:-null}" = null ] ; then
+			echo "Ubuntu node.js images is not built..."
+			pull_nodejs_image
+	else
+			echo "Good! Ubuntu node.js images is built."
+	fi
+
+#Building this on a SLES12 Base image
+elif [ $DISTRO = "sles12" ] ; then
+	# Checking if sles12 base image exsits
+	SLES12_BASE_UP=`docker images | grep '^sles12 '`
+	if [ "${SLES12_BASE_UP:-null}" = null ] ; then
+	        echo "Sles12 base images is not built..."
+		SLES12_RAW_UP=`docker images | grep '^sles12_raw '`
+		if [ "${SLES12_RAW_UP:-null}" = null ] ; then
+			echo "Sles12 raw images is not built..."
+			make_sles12_raw_image
+		fi
+		make_sles12_base_image
+	else
+		echo "Good! Sles12 base images is built."
+	fi
+
+	# Checking if sles12 nodejs image exsits
+	SLES12_NODEJS_UP=`docker images | grep '^sles12node '`
+	if [ "${SLES12_NODEJS_UP:-null}" = null ] ; then
+      echo "Sles12 node.js images is not built..."
+      make_sles12_nodejs_image
+	else
+      echo "Good! Sles12 node.js images is built."
+	fi
+
+#Building this on a publically available CentOS NodeJS image
 else
-        echo "Good! Sles12 node.js images is built."
+	# Checking if CentOS nodejs image exsits
+	CENTOS_NODEJS_UP=`docker images | grep '^centos-node '`
+	if [ "${CENTOS_NODEJS_UP:-null}" = null ] ; then
+      echo "CentOS node.js images is not built..."
+      make_centos_nodejs_image
+	else
+      echo "Good! CentOS node.js images is built."
+	fi
 fi
