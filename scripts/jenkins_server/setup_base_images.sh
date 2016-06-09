@@ -89,6 +89,7 @@ docker build -t ubuntu-node .
 }
 
 echo "value of DISTRO is " $DISTRO
+echo $DISTRO
 
 #Building this on an Ubuntu base image
 if [[ "$DISTRO" = "ubuntu" ]] ; then
