@@ -1,0 +1,29 @@
+# Base image
+#
+FROM s390x/ubuntu:latest
+
+# The author
+MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)
+
+# Install the build dependencies
+RUN apt-get update && apt-get install -y \
+  g++ \
+  git \
+  openjdk-8-jdk \
+	python \
+	python-setuptools \
+	#python-xml \
+  make && \
+	easy_install pip
+
+RUN mkdir /tweet_updater
+COPY tweety.py /tweet_updater/tweety.py
+COPY searches.txt /tweet_updater/searches.txt
+COPY requirements.txt /tweet_updater/requirements.txt
+RUN pip install -r /tweet_updater/requirements.txt
+
+#Expose port 8080 for app.js
+EXPOSE 8080
+
+#CMD /usr/sbin/sshd -D && /bin/bash && node /usr/local/timeseries/app.js
+CMD python /tweet_updater/tweety.py 1000
