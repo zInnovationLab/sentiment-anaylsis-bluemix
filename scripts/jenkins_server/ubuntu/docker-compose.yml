@@ -3,13 +3,13 @@ mongo_server:
     container_name: mongo_server
 
 news_up:
-    build: ../../../ubuntu/news_feed_updater
+    build: ../../../news_feed_updater/ubuntu/
     container_name: news_up
     links:
         - mongo_server
 
 tweety_up:
-    build: ../../../ubuntu/tweet_updater
+    build: ../../../tweet_updater/ubuntu/
     container_name: tweety_up
     links:
         - mongo_server
@@ -17,7 +17,7 @@ tweety_up:
     tty: true
 
 alchemy_api:
-    build: ../../../ubuntu/sentiment_alchemy
+    build: ../../../sentiment_alchemy/ubuntu/
     container_name: alchemy_api
     ports:
     - "8081:8080"
@@ -25,7 +25,7 @@ alchemy_api:
     tty: true
 
 news_front:
-    build: ../../../ubuntu/news
+    build: ../../../news/ubuntu/
     container_name: news_front
     ports:
     - "8083:8080"
@@ -37,7 +37,7 @@ news_front:
         - USE_ALCHEMY=yes
 
 tweety_front:
-    build: ../../../ubuntu/tweets
+    build: ../../../tweets/ubuntu/
     container_name: tweety_front
     ports:
     - "8082:8080"
