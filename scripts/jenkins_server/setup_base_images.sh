@@ -89,7 +89,7 @@ docker build -t ubuntu-node .
 }
 
 #Building this on an Ubuntu base image
-if [[ $DISTRO == "ubuntu" ]] ; then
+if [[ "$DISTRO" = "ubuntu" ]] ; then
 	echo "Checking for Ubuntu based images!"
 
 	# Checking if ubuntu nodejs image exsits
@@ -102,7 +102,7 @@ if [[ $DISTRO == "ubuntu" ]] ; then
 	fi
 
 #Building this on a SLES12 Base image
-elif [[ $DISTRO == "sles12" ]] ; then
+elif [[ "$DISTRO" = "sles12" ]] ; then
 	echo "Checking for SLES12 based images!"
 
 	# Checking if sles12 base image exsits
