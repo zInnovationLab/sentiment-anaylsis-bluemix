@@ -1,21 +1,18 @@
 mongo_server:
-    build:
-      context: ../../../mongo
-      dockerfile: Dockerfile-sles12
+    build: ../../../mongo
+    dockerfile: Dockerfile-sles12
     container_name: mongo_server
 
 news_up:
-    build:
-      context: ../../../news_feed_updater/
-      dockerfile: Dockerfile-sles12
+    build: ../../../news_feed_updater/
+    dockerfile: Dockerfile-sles12
     container_name: news_up
     links:
         - mongo_server
 
 tweety_up:
-    build:
-      context: ../../../tweet_updater
-      dockerfile: Dockerfile-sles12
+    build: ../../../tweet_updater
+    dockerfile: Dockerfile-sles12
     container_name: tweety_up
     links:
         - mongo_server
@@ -23,9 +20,8 @@ tweety_up:
     tty: true
 
 alchemy_api:
-    build:
-      context: ../../../sentiment_alchemy
-      dockerfile: Dockerfile-sles12
+    build: ../../../sentiment_alchemy
+    dockerfile: Dockerfile-sles12
     container_name: alchemy_api
     ports:
     - "8081:8080"
@@ -47,9 +43,8 @@ news_front:
         - USE_ALCHEMY=yes
 
 tweety_front:
-    build:
-      context: ../../../tweets
-      dockerfile: Dockerfile-sles12
+    build: ../../../tweets
+    dockerfile: Dockerfile-sles12
     container_name: tweety_front
     ports:
     - "8082:8080"
