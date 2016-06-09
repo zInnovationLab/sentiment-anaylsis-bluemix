@@ -89,7 +89,7 @@ docker build -t ubuntu-node .
 }
 
 #Building this on an Ubuntu base image
-if[ $DISTRO = "ubuntu" ] ; then
+if [ $DISTRO = "ubuntu" ] ; then
 	# Checking if ubuntu nodejs image exsits
 	UBUNTU_NODEJS_UP=`docker images | grep '^ubuntu-node '`
 	if [ "${UBUNTU_NODEJS_UP:-null}" = null ] ; then
