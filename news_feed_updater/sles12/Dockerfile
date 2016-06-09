@@ -1,0 +1,17 @@
+# Base image
+#
+FROM sles12node:latest
+
+# The author
+MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)
+
+
+COPY app.js /usr/local/app.js
+COPY package.json /usr/local/package.json
+
+#Expose port 8080 for app.js
+EXPOSE 8080
+
+#CMD /usr/sbin/sshd -D && /bin/bash && node /usr/local/timeseries/app.js
+RUN cd /usr/local/ && npm install
+CMD node /usr/local/app.js
