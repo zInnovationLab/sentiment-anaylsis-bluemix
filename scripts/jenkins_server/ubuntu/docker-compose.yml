@@ -1,16 +1,20 @@
 mongo_server:
-    image: brunswickheads/mongodb-2.6.6-s390x:latest
+    build:
+      context: ../../../mongo
+      dockerfile: Dockerfile-ubuntu
     container_name: mongo_server
 
 news_up:
-    build: ../../../news_feed_updater
+    build:
+      context: ../../../news_feed_updater/
       dockerfile: Dockerfile-ubuntu
     container_name: news_up
     links:
         - mongo_server
 
 tweety_up:
-    build: ../../../tweet_updater
+    build:
+      context: ../../../tweet_updater
       dockerfile: Dockerfile-ubuntu
     container_name: tweety_up
     links:
@@ -19,7 +23,8 @@ tweety_up:
     tty: true
 
 alchemy_api:
-    build: ../../../sentiment_alchemy
+    build:
+      context: ../../../sentiment_alchemy
       dockerfile: Dockerfile-ubuntu
     container_name: alchemy_api
     ports:
@@ -28,7 +33,8 @@ alchemy_api:
     tty: true
 
 news_front:
-    build: ../../../news
+    build:
+      context: ../../../news
       dockerfile: Dockerfile-ubuntu
     container_name: news_front
     ports:
@@ -41,7 +47,8 @@ news_front:
         - USE_ALCHEMY=yes
 
 tweety_front:
-    build: ../../../tweets
+    build:
+      context: ../../../tweets
       dockerfile: Dockerfile-ubuntu
     container_name: tweety_front
     ports:
