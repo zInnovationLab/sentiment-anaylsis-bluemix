@@ -1,5 +1,5 @@
 mongo_server:
-    image: ivandov/s390x_ubuntu_mongo_server
+    image: brunswickheads/mongodb-2.6.6-s390x:latest
     container_name: mongo_server
 
 news_up:
