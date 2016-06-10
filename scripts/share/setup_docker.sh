@@ -20,8 +20,11 @@ rm -r docker-compose
 # This may be functional for other s390x Linux Distro's - not verified
 install_docker_compose_rhel ()
 {
-	curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-	chmod +x /usr/local/bin/docker-compose
+	python get-pip.py
+	# pip install virtualenv
+	# virtualenv venv
+	# source venv/bin/activate
+	pip install docker-compose
 }
 
 install_docker_ubuntu ()
