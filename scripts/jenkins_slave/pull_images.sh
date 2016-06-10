@@ -7,5 +7,5 @@ read -r -a IMGS <<< $(echo $(docker search ${USR_NAME}/s390x))
 for img in "${IMGS[@]}"
 do
 #	echo "$img"
-	docker pull "${REGISTRY}:${REGISTRY_PORT}/$img"
+	docker pull "$img"
 done
