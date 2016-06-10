@@ -42,6 +42,8 @@ install_docker_sles ()
 	wget ftp://ftp.unicamp.br/pub/linuxpatch/s390x/suse/sles12/docker/docker-1.9.1-sles12-20151127.tar.gz
 	tar -xvzf docker-1.9.1-sles12-20151127.tar.gz
 	cp ./docker-1.9.1-sles12-20151127/docker /usr/bin
+
+	#User group modifications may be needed here
 }
 
 #This will only work on RHEL v7.2
@@ -51,6 +53,8 @@ install_docker_rhel (){
 	wget ftp://ftp.unicamp.br/pub/linuxpatch/s390x/redhat/rhel7.2/docker-1.10.1-rhel7.2-20160408.tar.gz
 	tar -xvzf docker-1.10.1-rhel7.2-20160408.tar.gz
 	cp ./docker-1.10.1-rhel7.2-20160408/docker /usr/bin
+
+	#User group modifications may be needed here
 }
 
 # Checking if docker daemon is running
