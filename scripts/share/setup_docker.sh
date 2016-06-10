@@ -74,7 +74,7 @@ fi
 # Checking if docker-compose is installed on RHEL?
 if [ -f /etc/redhat-release ] ; then
 	echo "Checking for docker-compose on RHEL"
-	if [ ! -x /usr/bin/docker-compose ] ; then
+	if [ ! -x /usr/local/bin/docker-compose ] ; then
 		echo "Docker-compose is not installed, install now..."
 		install_docker_compose_rhel
 	else
