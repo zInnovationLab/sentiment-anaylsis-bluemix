@@ -8,7 +8,7 @@ MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/communi
 # Install grunt-cli
 #RUN npm install grunt-cli mysql stochasm socket.io chance merge
 
-RUN npm -g install bower
+RUN apt-get update && apt-get install git && npm -g install bower
 
 #Copy the relevant files.
 RUN mkdir /tweets
