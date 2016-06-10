@@ -65,7 +65,7 @@ if [ "${DOCKER_RUNNING:-null}" = null ] ; then
 		install_docker_sles
 	fi
 	#docker daemon -g ${DOCKER_DAEMON_DIRECTORY} --insecure-registry ${REGISTRY}:${REGISTRY_PORT} -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock &
-	docker daemon -g ${DOCKER_DAEMON_DIRECTORY}
+	docker daemon -g ${DOCKER_DAEMON_DIRECTORY} &
 	disown
 else
 	echo "Good! Docker daemon is running."
