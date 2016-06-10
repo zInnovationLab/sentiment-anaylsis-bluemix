@@ -20,6 +20,7 @@ rm -r docker-compose
 # This may be functional for other s390x Linux Distro's - not verified
 install_docker_compose_rhel ()
 {
+	wget https://bootstrap.pypa.io/get-pip.py
 	python get-pip.py
 	# pip install virtualenv
 	# virtualenv venv
