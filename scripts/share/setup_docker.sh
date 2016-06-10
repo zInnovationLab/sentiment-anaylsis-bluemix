@@ -45,7 +45,7 @@ install_docker_sles ()
 }
 
 #This will only work on RHEL v7.2
-install docker_rhel (){
+install_docker_rhel (){
 	echo "Detected RHEL Operating System"
 	cd /data/docker/
 	wget ftp://ftp.unicamp.br/pub/linuxpatch/s390x/redhat/rhel7.2/docker-1.10.1-rhel7.2-20160408.tar.gz
