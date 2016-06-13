@@ -25,5 +25,7 @@ RUN pip install -r /tweet_updater/requirements.txt
 #Expose port 8080 for app.js
 EXPOSE 8080
 
+WORKDIR /tweet_updater
+
 #CMD /usr/sbin/sshd -D && /bin/bash && node /usr/local/timeseries/app.js
 CMD python /tweet_updater/tweety.py 1000

@@ -5,6 +5,8 @@ mongo_server:
 news_up:
     image: ivandov/s390x_ubuntu_news_up
     container_name: news_up
+    ports:
+    - "8080:8080"
     links:
         - mongo_server
 
@@ -15,6 +17,7 @@ tweety_up:
         - mongo_server
     stdin_open: true
     tty: true
+    env_file: ../../tweet_updater/secrets.env
 
 alchemy_api:
     image: ivandov/s390x_ubuntu_alchemy_api
