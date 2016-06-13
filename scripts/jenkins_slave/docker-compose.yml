@@ -26,6 +26,7 @@ alchemy_api:
     - "8081:8080"
     stdin_open: true
     tty: true
+    env_file: ../../sentiment_alchemy/secrets.env
 
 news_front:
     image: ivandov/s390x_ubuntu_news_front
