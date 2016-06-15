@@ -93,7 +93,8 @@ if [ -f /etc/redhat-release ] ; then
 elif [[ $(uname -a) =~ .*Ubuntu.* ]] ; then
 	curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 	chmod +x /usr/local/bin/docker-compose
-	
+	export COMPOSE_API_VERSION=$(docker version | grep "Server API" | awk '{print $4}')
+
 #Installed on SLES?
 else
 	echo "Checking for docker-compose on SLES"
