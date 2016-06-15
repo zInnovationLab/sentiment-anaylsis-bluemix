@@ -89,7 +89,7 @@ docker build -t ubuntu-node .
 }
 
 make_ubuntu_x86_nodejs_image (){
-cd ../../nodejs/ubuntu
+cd ../../nodejs/ubuntu_x86
 docker build -t ubuntu-node .
 }
 
