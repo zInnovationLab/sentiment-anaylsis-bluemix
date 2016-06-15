@@ -62,7 +62,7 @@ install_docker_rhel (){
 }
 
 # Checking if docker daemon is running
-DOCKER_RUNNING=`ps aux | grep -v grep | grep 'docker daemon'`
+DOCKER_RUNNING=`ps aux | grep -v grep | grep 'docker'`
 if [ "${DOCKER_RUNNING:-null}" = null ] ; then
 	echo "Docker is not running..."
 	if [[ $(uname -a) =~ .*Ubuntu.* ]] ; then
