@@ -88,6 +88,11 @@ cd ../../nodejs/ubuntu
 docker build -t ubuntu-node .
 }
 
+make_ubuntu_x86_nodejs_image (){
+cd ../../nodejs/ubuntu
+docker build -t ubuntu-node .
+}
+
 echo "value of DISTRO is " $DISTRO
 
 #Building this on an Ubuntu base image
@@ -99,6 +104,19 @@ if [[ "$DISTRO" = "ubuntu" ]] ; then
 	if [ "${UBUNTU_NODEJS_UP:-null}" = null ] ; then
 			echo "Ubuntu node.js images is not built..."
 			make_ubuntu_nodejs_image
+	else
+			echo "Good! Ubuntu node.js images is built."
+	fi
+
+# Building this on Ubuntu x86
+elif [[ "$DISTRO" = "ubuntu_x86" ]] ; then
+	echo "Checking for x86 based images"
+
+	# Checking if ubuntu nodejs image exsits
+	UBUNTU_NODEJS_UP=`docker images | grep '^ubuntu-node '`
+	if [ "${UBUNTU_NODEJS_UP:-null}" = null ] ; then
+			echo "Ubuntu node.js images is not built..."
+			make_ubuntu_x86_nodejs_image
 	else
 			echo "Good! Ubuntu node.js images is built."
 	fi
