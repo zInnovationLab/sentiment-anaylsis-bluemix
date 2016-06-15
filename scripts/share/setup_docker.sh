@@ -88,6 +88,12 @@ if [ -f /etc/redhat-release ] ; then
 	else
 		echo "Good! Docker-compose is installed."
 	fi
+
+#installed on Ubuntu? Only works on x86 ubuntu
+elif [[ $(uname -a) =~ .*Ubuntu.* ]] ; then
+	curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
+	
 #Installed on SLES?
 else
 	echo "Checking for docker-compose on SLES"
