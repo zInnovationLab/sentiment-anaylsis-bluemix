@@ -1,5 +1,5 @@
 mongo_server:
-    image: mongo:latest
+    image: ivandov/mongo
     container_name: mongo_server
 
 news_up:
