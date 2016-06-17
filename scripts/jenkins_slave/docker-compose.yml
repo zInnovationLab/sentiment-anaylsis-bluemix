@@ -1,35 +1,33 @@
 mongo_server:
-    image: brunswickheads/mongodb-2.6.6-s390x:latest
+    image: mongo:latest
     container_name: mongo_server
 
 news_up:
-    image: ivandov/s390x_ubuntu_news_up
+    image: ivandov/x86_ubuntux86_news_up
     container_name: news_up
-    ports:
-    - "8080:8080"
     links:
         - mongo_server
 
 tweety_up:
-    image: ivandov/s390x_ubuntu_tweety_up
+    image: ivandov/x86_ubuntux86_tweety_up
     container_name: tweety_up
     links:
         - mongo_server
     stdin_open: true
     tty: true
-    env_file: ../../tweet_updater/secrets.env
+    env_file: ../../../tweet_updater/secrets.env
 
 alchemy_api:
-    image: ivandov/s390x_ubuntu_alchemy_api
+    image: ivandov/x86_ubuntux86_alchemy_api
     container_name: alchemy_api
     #ports:
     #- "8081:8080"
     stdin_open: true
     tty: true
-    env_file: ../../sentiment_alchemy/secrets.env
+    env_file: ../../../sentiment_alchemy/secrets.env
 
 news_front:
-    image: ivandov/s390x_ubuntu_news_front
+    image: ivandov/x86_ubuntux86_news_front
     container_name: news_front
     ports:
     - "8083:8080"
@@ -41,7 +39,7 @@ news_front:
         - USE_ALCHEMY=yes
 
 tweety_front:
-    image: ivandov/s390x_ubuntu_tweety_front
+    image: ivandov/x86_ubuntux86_tweety_front
     container_name: tweety_front
     ports:
     - "8082:8080"
