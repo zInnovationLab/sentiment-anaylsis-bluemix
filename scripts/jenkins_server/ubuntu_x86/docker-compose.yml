@@ -22,8 +22,8 @@ alchemy_api:
     build: ../../../sentiment_alchemy
     dockerfile: Dockerfile-ubuntu
     container_name: alchemy_api
-    ports:
-    - "8081:8080"
+    #ports:
+    #    - "8081:8080"
     stdin_open: true
     tty: true
 
@@ -32,7 +32,7 @@ news_front:
     dockerfile: Dockerfile-ubuntu
     container_name: news_front
     ports:
-    - "8083:8080"
+        - "8083:8080"
     links:
         - alchemy_api
         - mongo_server
