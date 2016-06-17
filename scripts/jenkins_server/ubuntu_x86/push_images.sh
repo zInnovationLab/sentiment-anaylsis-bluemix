@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -r -a IMGS <<< $(echo $(docker images | awk '{print $1}' | grep ubuntu))
+read -r -a IMGS <<< $(echo $(docker images | awk '{print $1}' | grep ubuntux86))
 #docker tag ${IMGS[1]} "lal/${IMGS[1]}"
 for img in "${IMGS[@]}"
 do
